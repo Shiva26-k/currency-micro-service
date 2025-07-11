@@ -11,10 +11,20 @@ pipeline{
                 echo "This stage from main branch"
             }
         }
-        stage('deploy'){
+        stage('test'){
             steps{
                 echo "deploy stage from main branch"
             }
         }
+        stage('docker'){
+            steps{
+                echo "docker stage developed"
+            }
+        }
+        stage('deploy'){
+            steps{
+                echo "deploying in prod"
+            }
+        }
     }
-}
+}   
