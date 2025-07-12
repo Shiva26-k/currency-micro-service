@@ -3,23 +3,23 @@ pipeline{
         label 'java-slave'
     }
     environment{
-        DEPLOY_TO = 'production'
+        MONTH = 'july'
     }
     stages{
-        stage('Build'){
+        stage('Dev_stage'){
             steps{
-                echo "Running a build stage"
+                echo "Deploy to dev environment"
             }
         }
-        stage('scan'){
+        stage('Deploy_prod'){
             when{
-                allOf{
-                    branch 'production'
-                    environment name : 'DEPLOY_TO' , value : 'production'
+                anyOf{
+                    branch 'hotfix'
+                    environment name :'MONTH' , value:'july'
                 }
             }
             steps{
-                    echo "Build by using when consitions"
+                echo "Deploy to prod"
             }
         }
     }
