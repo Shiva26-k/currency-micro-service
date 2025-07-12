@@ -2,24 +2,46 @@ pipeline{
     agent{
         label 'java-slave'
     }
-    environment{
-        MONTH = 'july'
-    }
     stages{
-        stage('Dev_stage'){
+        stage('Build'){
             steps{
-                echo "Deploy to dev environment"
+                echo "Build the application"
             }
         }
-        stage('Deploy_prod'){
+        stage('sonar'){
+            steps{
+                echo "scaning the application"
+            }
+        }
+        stage('dockerIamge'){
+            steps{
+                echo "creating docker image"
+            }
+        }
+        stage('deplotToDev'){
+            steps{
+                echo "Deplyoing in dev envrmnt"
+            }
+        }
+        stage('deployToTest'){
+            steps{
+                echo "Deploying in test environment"
+            }
+        }
+        stage('deployToStage'){
             when{
-                anyOf{
-                    branch 'hotfix'
-                    environment name :'MONTH' , value:'july'
-                }
+                branch 'release-*'
             }
             steps{
-                echo "Deploy to prod"
+                echo "deploy to stage"
+            }
+        }
+        stage('deplotToprod'){
+            when{
+                tag pattern : "v\\d{1,2}.\\d{1,2}.\\d{1,2}"
+            }
+            steps{
+                echo "deploy to prodcution"
             }
         }
     }
