@@ -1,5 +1,5 @@
 pipeline{
-    agente {
+    agent{
         label 'java-slave'
     }
     environment{
@@ -19,7 +19,7 @@ pipeline{
                 }
             }
             steps{
-
+                    echo "Build by using when consitions"
             }
         }
     }
