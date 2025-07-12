@@ -7,9 +7,16 @@ pipeline{
     }
     stages{
         stage('Build'){
+            // when{
+            //     environment name : 'TODAY_DAY' , value : 'saturday'
+            // }
             when{
-                environment name : 'TODAY_DAY' , value : 'sunday'
+                expression{
+                    BRANCH_NAME ==~ /(prod|hotfix)/
+                }
             }
+
+
             steps{
                 echo "this stage will be execute for when example "
             }
