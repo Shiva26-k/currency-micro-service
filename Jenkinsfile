@@ -1,24 +1,25 @@
 pipeline{
-    agent {
+    agente {
         label 'java-slave'
     }
     environment{
-        TODAY_DAY = 'saturday'
+        DEPLOY_TO = 'production'
     }
     stages{
         stage('Build'){
-            // when{
-            //     environment name : 'TODAY_DAY' , value : 'saturday'
-            // }
+            steps{
+                echo "Running a build stage"
+            }
+        }
+        stage('scan'){
             when{
-                expression{
-                    BRANCH_NAME ==~ /(prod|hotfix)/
+                allOf{
+                    branch 'production'
+                    environment name : 'DEPLOY_TO' , value : 'production'
                 }
             }
-
-
             steps{
-                echo "this stage will be execute for when example "
+
             }
         }
     }
