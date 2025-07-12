@@ -1,19 +1,18 @@
 pipeline{
-    agent any
-    environment {
-        name = 'Shiva'
-        course = 'cloud engineer'
+    agent {
+        label 'java-slave'
+    }
+    environment{
+        TODAY_DAY = 'saturday'
     }
     stages{
         stage('Build'){
-            environment{
-                name = 'mahesh'
+            when{
+                environment name : 'TODAY_DAY' , value : 'saturday'
             }
             steps{
-                echo "welcome to hyderbad ${name}"
-                echo "you are a ${course} right"
+                echo "this stage will be execute for when example "
             }
         }
-
     }
 }
